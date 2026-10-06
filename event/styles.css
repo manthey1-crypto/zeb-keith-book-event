@@ -1,0 +1,51 @@
+/* ===== EDITORIAL SITE STYLES ===== */
+    /* These styles create the warm paper texture and traditional bookstore character. */
+    :root {
+      --paper: #f4eedf;
+      --paper-light: #fbf7ed;
+      --green: #173f35;
+      --green-dark: #0e2c25;
+      --brick: #a14231;
+      --ink: #24332d;
+      --rule: #cfc3a9;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background-image:
+        radial-gradient(rgba(23, 63, 53, 0.035) 0.7px, transparent 0.7px);
+      background-size: 8px 8px;
+    }
+
+    /* No visual gradient is used; the radial image only adds a subtle paper grain. */
+    .font-ui {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .paper-card {
+      background: var(--paper-light);
+      border: 1px solid var(--rule);
+      box-shadow: 7px 7px 0 rgba(23, 63, 53, 0.09);
+    }
+
+    .focus-ring:focus-visible {
+      outline: 3px solid var(--brick);
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background: var(--brick);
+      color: #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
