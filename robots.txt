@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://manthey1-crypto.github.io/zeb-keith-book-event/sitemap.xml
+Sitemap: https://smarthub.ink/sitemap.xml
