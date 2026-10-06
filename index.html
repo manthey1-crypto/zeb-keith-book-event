@@ -424,14 +424,16 @@
             </div>
             <div class="space-y-2">
               <p class="sans text-xs font-bold uppercase tracking-[.18em] text-[#a7432f]">A quick hello from Zeb</p>
-              <div class="overflow-hidden border border-[#244638] bg-black book-spine">
-                <iframe
-                  src="https://player.cloudinary.com/embed/?cloud_name=wzjavqmm&public_id=Meet_Mr_Wheelz"
-                  title="Meet Zeb Keith, aka Mr. Wheelz"
-                  class="block w-full aspect-video bg-black"
-                  loading="lazy"
-                  allow="fullscreen; picture-in-picture"
-                  allowfullscreen></iframe>
+              <div class="book-spine overflow-hidden border border-[#244638] bg-black">
+                <div class="relative w-full overflow-hidden pt-[56.25%] bg-black">
+                  <iframe
+                    src="https://player.cloudinary.com/embed/?cloud_name=wzjavqmm&public_id=Meet_Mr_Wheelz"
+                    title="Meet Zeb Keith, aka Mr. Wheelz"
+                    class="absolute inset-0 h-full w-full bg-black"
+                    loading="lazy"
+                    allow="fullscreen; picture-in-picture"
+                    allowfullscreen></iframe>
+                </div>
               </div>
             </div>
             <p class="sans text-sm leading-6 text-[#5f645f]">A brief introduction from Zeb to help you connect the author voice with the Mr. Wheelz identity.</p>
@@ -588,7 +590,7 @@
   <!-- ============================================================================ -->
   <!-- MOBILE BOOKS SHORTCUT: Persistent touch-friendly shortcut on smaller screens   -->
   <!-- ============================================================================ -->
-  <a data-section="mobile-books-shortcut" href="#books" class="sans fixed bottom-4 right-4 z-40 inline-flex min-h-12 items-center justify-center border-2 border-[#f4efe5] bg-[#a7432f] px-5 py-3 font-bold text-white shadow-lg md:hidden" aria-label="Jump to Zeb Keith's books">Books ↓</a>
+  
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
