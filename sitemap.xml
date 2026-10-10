@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://smarthub.ink/order-complete/</loc>
+    <lastmod>2026-10-10T18:34:18.184Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
     <loc>https://smarthub.ink/pay/</loc>
     <lastmod>2026-10-10T18:34:10.364Z</lastmod>
     <changefreq>weekly</changefreq>
@@ -8,11 +13,6 @@
   <url>
     <loc>https://smarthub.ink/</loc>
     <lastmod>2026-10-10T18:34:02.654Z</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://smarthub.ink/order-complete/</loc>
-    <lastmod>2026-10-10T18:33:16.253Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
