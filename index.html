@@ -530,7 +530,7 @@
           <div data-aos="fade-up">
             <p class="sans eyebrow text-xs font-bold uppercase text-[#a7432f]">Order inquiries</p>
             <h2 class="display mt-4 text-4xl font-bold sm:text-5xl">Order a Book</h2>
-            <p class="mt-6 max-w-2xl text-lg leading-8 text-[#4c574f]">Want a signed copy? Send your order request below and I’ll follow up by email with availability, total cost, and pickup or shipping details.</p>
+            <p class="mt-6 max-w-2xl text-lg leading-8 text-[#4c574f]">Want a signed copy? Send your order request below. After you submit, you’ll be taken to secure Stripe checkout to pay for your book. I’ll follow up by email with pickup or shipping details.</p>
             <div class="mt-8 space-y-4 rounded-2xl border border-[#c9bea9] bg-[#f4efe5] p-6 shadow-[8px_12px_0_rgba(24,37,31,.07)]">
               <p class="sans text-sm font-bold uppercase tracking-[.18em] text-[#a7432f]">What to include</p>
               <ul class="space-y-3 text-base leading-7 text-[#37483f]">
@@ -543,7 +543,61 @@
 
           <div data-aos="fade-up" data-aos-delay="100">
             <div class="book-spine rounded-2xl border border-[#244638] bg-[#f4efe5] p-6 shadow-[8px_12px_0_rgba(24,37,31,.09)] sm:p-8">
-              <script src="https://app.macknified.com/forms-embed.js" data-form="sag88419" data-theme="light" data-accent="#a7432f" data-bg="#f4efe5" data-surface="#f4efe5" data-field="#ffffff" data-text="#18251f" data-gradient="0" async></script>
+              <form id="book-order-form" class="space-y-5 sans">
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="name" class="mb-2 block text-sm font-bold text-[#18251f]">Name</label>
+                    <input id="name" name="name" type="text" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition placeholder:text-[#8b8f88] focus:border-[#a7432f]">
+                  </div>
+                  <div>
+                    <label for="email" class="mb-2 block text-sm font-bold text-[#18251f]">Email</label>
+                    <input id="email" name="email" type="email" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition placeholder:text-[#8b8f88] focus:border-[#a7432f]">
+                  </div>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="book" class="mb-2 block text-sm font-bold text-[#18251f]">Book</label>
+                    <select id="book" name="book" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition focus:border-[#a7432f]">
+                      <option value="" selected disabled>Select a book</option>
+                      <option value="Never Give Up">Never Give Up</option>
+                      <option value="The Road to Narcissistic Abuse is Recovery">The Road to Narcissistic Abuse is Recovery</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="quantity" class="mb-2 block text-sm font-bold text-[#18251f]">Quantity</label>
+                    <input id="quantity" name="quantity" type="number" min="1" value="1" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition focus:border-[#a7432f]">
+                  </div>
+                </div>
+
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label for="signed_copy" class="mb-2 block text-sm font-bold text-[#18251f]">Signed copy?</label>
+                    <select id="signed_copy" name="signed_copy" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition focus:border-[#a7432f]">
+                      <option value="" selected disabled>Select yes or no</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="fulfillment_preference" class="mb-2 block text-sm font-bold text-[#18251f]">Fulfillment preference</label>
+                    <select id="fulfillment_preference" name="fulfillment_preference" required class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition focus:border-[#a7432f]">
+                      <option value="" selected disabled>Select a preference</option>
+                      <option value="Local pickup">Local pickup</option>
+                      <option value="Shipping">Shipping</option>
+                      <option value="Not sure yet">Not sure yet</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="message_special_instructions" class="mb-2 block text-sm font-bold text-[#18251f]">Message / special instructions</label>
+                  <textarea id="message_special_instructions" name="message_special_instructions" rows="5" class="w-full rounded-xl border border-[#c9bea9] bg-white px-4 py-3 text-base text-[#18251f] shadow-sm outline-none transition placeholder:text-[#8b8f88] focus:border-[#a7432f]" placeholder="Pickup notes, shipping address details, or anything else I should know."></textarea>
+                </div>
+
+                <button type="submit" id="book-order-submit" class="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#a7432f] px-6 py-3 font-bold text-white transition hover:bg-[#7f3022] disabled:cursor-not-allowed disabled:opacity-70">Send Order Request &amp; Pay</button>
+                <p id="book-order-status" class="min-h-6 text-sm font-medium text-[#37483f]" aria-live="polite"></p>
+              </form>
             </div>
           </div>
         </div>
@@ -598,6 +652,62 @@
     // Purpose: Adds restrained entrance motion while preserving reduced-motion access.
     // Triggers: Runs once when content enters the viewport.
     AOS.init({ once: true, duration: 700, offset: 80, disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+
+    const bookOrderForm = document.getElementById('book-order-form');
+    const bookOrderSubmit = document.getElementById('book-order-submit');
+    const bookOrderStatus = document.getElementById('book-order-status');
+
+    if (bookOrderForm) {
+      bookOrderForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(bookOrderForm);
+        const name = formData.get('name')?.toString().trim();
+        const email = formData.get('email')?.toString().trim();
+        const book = formData.get('book')?.toString();
+        const quantity = formData.get('quantity')?.toString();
+        const signedCopy = formData.get('signed_copy')?.toString();
+        const fulfillmentPreference = formData.get('fulfillment_preference')?.toString();
+        const messageSpecialInstructions = formData.get('message_special_instructions')?.toString().trim() || '';
+
+        bookOrderSubmit.disabled = true;
+        bookOrderStatus.textContent = 'Sending your request...';
+
+        try {
+          const response = await fetch('https://app.macknified.com/api/webhooks/flow/6754/7fbdbe3fdf91c6af385b5b3c6af20262726a792e510584f4b885eea2a20deb0d', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contactName: name,
+              contactEmail: email,
+              channel: 'email',
+              data: {
+                book,
+                quantity,
+                signed_copy: signedCopy,
+                fulfillment_preference: fulfillmentPreference,
+                message_special_instructions: messageSpecialInstructions
+              }
+            })
+          });
+
+          if (!response.ok) throw new Error('Request failed');
+
+          const stripeLinks = {
+            'Never Give Up': 'https://buy.stripe.com/6oUaEZa0v7MLc1Cf01f7i00',
+            'The Road to Narcissistic Abuse is Recovery': 'https://buy.stripe.com/cNieVfc8D7ML7Lm3hjf7i01'
+          };
+
+          const redirectUrl = stripeLinks[book];
+          if (!redirectUrl) throw new Error('Missing checkout link');
+
+          window.location.href = redirectUrl;
+        } catch (error) {
+          bookOrderSubmit.disabled = false;
+          bookOrderStatus.textContent = 'Sorry, something went wrong. Please try again.';
+        }
+      });
+    }
   </script>
   <script src="https://app.macknified.com/widget.js" data-widget="4058424" async></script>
 </body>
