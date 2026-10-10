@@ -556,18 +556,25 @@
                 <div>
                   <p class="mb-3 block text-sm font-bold text-[#18251f]">Choose your book(s)</p>
                   <div class="grid gap-4">
-                    <label class="flex cursor-pointer items-start gap-4 rounded-2xl border border-[#c9bea9] bg-white p-4 shadow-sm transition hover:border-[#a7432f] has-[:checked]:border-[#a7432f] has-[:checked]:bg-[#f4efe5]">
-                      <input name="never_give_up" value="yes" type="checkbox" class="mt-1 h-5 w-5 rounded border-[#c9bea9] text-[#a7432f] focus:ring-[#a7432f]">
+                    <label class="flex cursor-pointer items-start gap-4 rounded-2xl border border-[#c9bea9] bg-white p-5 shadow-sm transition hover:border-[#a7432f] has-[:checked]:border-[#a7432f] has-[:checked]:bg-[#f4efe5] sm:p-6">
+                      <input name="book_choice" value="never_give_up" type="radio" required class="mt-1 h-5 w-5 shrink-0 border-[#c9bea9] text-[#a7432f] focus:ring-[#a7432f]">
                       <span class="flex-1">
                         <span class="block text-lg font-bold text-[#18251f]">Never Give Up — $10</span>
                         <span class="mt-1 block text-sm leading-6 text-[#5f645f]">Choose this book if you’d like Never Give Up in your order.</span>
                       </span>
                     </label>
-                    <label class="flex cursor-pointer items-start gap-4 rounded-2xl border border-[#c9bea9] bg-white p-4 shadow-sm transition hover:border-[#a7432f] has-[:checked]:border-[#a7432f] has-[:checked]:bg-[#f4efe5]">
-                      <input name="road_to_recovery" value="yes" type="checkbox" class="mt-1 h-5 w-5 rounded border-[#c9bea9] text-[#a7432f] focus:ring-[#a7432f]">
+                    <label class="flex cursor-pointer items-start gap-4 rounded-2xl border border-[#c9bea9] bg-white p-5 shadow-sm transition hover:border-[#a7432f] has-[:checked]:border-[#a7432f] has-[:checked]:bg-[#f4efe5] sm:p-6">
+                      <input name="book_choice" value="road_to_recovery" type="radio" class="mt-1 h-5 w-5 shrink-0 border-[#c9bea9] text-[#a7432f] focus:ring-[#a7432f]">
                       <span class="flex-1">
                         <span class="block text-lg font-bold text-[#18251f]">The Road to Narcissistic Abuse is Recovery — $20</span>
                         <span class="mt-1 block text-sm leading-6 text-[#5f645f]">Choose this book if you’d like The Road to Narcissistic Abuse is Recovery in your order.</span>
+                      </span>
+                    </label>
+                    <label class="flex cursor-pointer items-start gap-4 rounded-2xl border border-[#c9bea9] bg-white p-5 shadow-sm transition hover:border-[#a7432f] has-[:checked]:border-[#a7432f] has-[:checked]:bg-[#f4efe5] sm:p-6">
+                      <input name="book_choice" value="both_books" type="radio" class="mt-1 h-5 w-5 shrink-0 border-[#c9bea9] text-[#a7432f] focus:ring-[#a7432f]">
+                      <span class="flex-1">
+                        <span class="block text-lg font-bold text-[#18251f]">Both Books — $30</span>
+                        <span class="mt-1 block text-sm leading-6 text-[#5f645f]">One copy of each book to start. You can adjust each quantity in Stripe checkout.</span>
                       </span>
                     </label>
                   </div>
@@ -671,8 +678,7 @@
         const formData = new FormData(bookOrderForm);
         const name = formData.get('name')?.toString().trim();
         const email = formData.get('email')?.toString().trim();
-        const neverGiveUpSelected = formData.get('never_give_up')?.toString() === 'yes';
-        const roadToRecoverySelected = formData.get('road_to_recovery')?.toString() === 'yes';
+        const bookChoice = formData.get('book_choice')?.toString();
         const signedCopy = formData.get('signed_copy')?.toString();
         const fulfillmentPreference = formData.get('fulfillment_preference')?.toString();
         const messageSpecialInstructions = formData.get('message_special_instructions')?.toString().trim() || '';
@@ -680,23 +686,21 @@
         if (bookOrderError) bookOrderError.textContent = '';
         bookOrderStatus.textContent = '';
 
-        if (!neverGiveUpSelected && !roadToRecoverySelected) {
-          if (bookOrderError) bookOrderError.textContent = 'Choose at least one book.';
+        if (!bookChoice) {
+          if (bookOrderError) bookOrderError.textContent = 'Choose a book option.';
           return;
         }
 
-        const selectedBooks = [];
-        if (neverGiveUpSelected) selectedBooks.push('Never Give Up');
-        if (roadToRecoverySelected) selectedBooks.push('The Road to Narcissistic Abuse is Recovery');
-
-        const book = selectedBooks.length === 2
-          ? 'Never Give Up + The Road to Narcissistic Abuse is Recovery'
-          : selectedBooks[0];
+        const bookMap = {
+          never_give_up: 'Never Give Up',
+          road_to_recovery: 'The Road to Narcissistic Abuse is Recovery',
+          both_books: 'Never Give Up + The Road to Narcissistic Abuse is Recovery'
+        };
 
         const stripeLinks = {
-          'Never Give Up': 'https://buy.stripe.com/6oUaEZa0v7MLc1Cf01f7i00',
-          'The Road to Narcissistic Abuse is Recovery': 'https://buy.stripe.com/cNieVfc8D7ML7Lm3hjf7i01',
-          'Never Give Up + The Road to Narcissistic Abuse is Recovery': 'https://buy.stripe.com/cNi4gB2y3aYX0iUdVXf7i02'
+          never_give_up: 'https://buy.stripe.com/6oUaEZa0v7MLc1Cf01f7i00',
+          road_to_recovery: 'https://buy.stripe.com/cNieVfc8D7ML7Lm3hjf7i01',
+          both_books: 'https://buy.stripe.com/cNi4gB2y3aYX0iUdVXf7i02'
         };
 
         bookOrderSubmit.disabled = true;
@@ -706,12 +710,12 @@
           const response = await fetch('https://app.macknified.com/api/webhooks/flow/6754/7fbdbe3fdf91c6af385b5b3c6af20262726a792e510584f4b885eea2a20deb0d', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
+                          body: JSON.stringify({
               contactName: name,
               contactEmail: email,
               channel: 'email',
               data: {
-                book,
+                book: bookMap[bookChoice],
                 quantity: 'Selected in Stripe checkout',
                 signed_copy: signedCopy,
                 fulfillment_preference: fulfillmentPreference,
@@ -722,7 +726,7 @@
 
           if (!response.ok) throw new Error('Request failed');
 
-          const redirectUrl = stripeLinks[book];
+          const redirectUrl = stripeLinks[bookChoice];
           if (!redirectUrl) throw new Error('Missing checkout link');
 
           window.location.href = redirectUrl;
