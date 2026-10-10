@@ -1,0 +1,10 @@
+html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}
+    body{display:grid;place-items:center}
+    .stage{position:fixed;inset:0;background:#000;display:grid;place-items:center}
+    video{width:100vw;height:100vh;object-fit:contain;background:#000}
+    .hint{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));
+      font:600 14px/1.2 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:#fff;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.25);
+      border-radius:999px;padding:10px 14px;backdrop-filter:blur(8px);opacity:.75;
+      cursor:pointer;user-select:none}
+    .hint:focus-visible{outline:3px solid #fff;outline-offset:3px}
