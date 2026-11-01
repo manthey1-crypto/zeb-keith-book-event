@@ -2,7 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://smarthub.ink/</loc>
-    <lastmod>2026-10-10T19:10:35.759Z</lastmod>
+    <lastmod>2026-11-01T06:46:50.887Z</lastmod>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://smarthub.ink/event/</loc>
+    <lastmod>2026-11-01T06:02:08.881Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
   <url>
@@ -23,11 +28,6 @@
   <url>
     <loc>https://smarthub.ink/loop/</loc>
     <lastmod>2026-10-10T17:53:11.942Z</lastmod>
-    <changefreq>weekly</changefreq>
-  </url>
-  <url>
-    <loc>https://smarthub.ink/event/</loc>
-    <lastmod>2026-10-09T04:41:18.834Z</lastmod>
     <changefreq>weekly</changefreq>
   </url>
 </urlset>
